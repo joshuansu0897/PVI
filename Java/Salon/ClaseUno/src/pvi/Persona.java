@@ -17,6 +17,10 @@ public class Persona {
     private int edad;
     private boolean lentes;
 
+    public Persona() {
+        System.out.println("Persona creada");
+    }
+
     public Persona(char sexo, String nombre, double alutra, int edad, boolean lentes) {
         this.sexo = sexo;
         this.nombre = nombre;
