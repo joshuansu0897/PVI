@@ -12,6 +12,11 @@ package pvi;
 public class Alumno extends Persona {
 
     public Alumno() {
+        System.out.println("Soy un alumno");
+    }
+
+    public Alumno(String saludar) {
+        System.out.println(saludar);
     }
 
 }

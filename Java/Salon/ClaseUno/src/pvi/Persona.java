@@ -19,6 +19,15 @@ public class Persona {
 
     public Persona() {
         System.out.println("Persona creada");
+        this.hablar();
+    }
+
+    public Persona(String saludar) {
+        System.out.println(saludar);
+    }
+
+    public void hablar() {
+        System.out.println("Hola, soy una persona");
     }
 
     public Persona(char sexo, String nombre, double alutra, int edad, boolean lentes) {
