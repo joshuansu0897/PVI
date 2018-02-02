@@ -126,14 +126,13 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_miGuardarActionPerformed
 
     private void miAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirActionPerformed
-         if (validateClose("Hay cambios sin guardar.\nContinuar?") == JOptionPane.YES_OPTION) {
+        if (validateClose("Hay cambios sin guardar.\nContinuar?") == JOptionPane.YES_OPTION) {
             Util.fileChooser("");
         }
     }//GEN-LAST:event_miAbrirActionPerformed
 
     private void miCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCerrarActionPerformed
-        int option = validateClose("Seguro que quieres cerrar sin guardar?");
-        if (option == JOptionPane.YES_OPTION) {
+        if (validateClose("Seguro que quieres cerrar sin guardar?") == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_miCerrarActionPerformed
