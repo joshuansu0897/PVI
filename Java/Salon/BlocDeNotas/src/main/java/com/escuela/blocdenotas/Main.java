@@ -5,6 +5,7 @@
  */
 package com.escuela.blocdenotas;
 
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +13,14 @@ package com.escuela.blocdenotas;
  */
 public class Main extends javax.swing.JFrame {
 
+    private boolean GUARDED;
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,13 +39,18 @@ public class Main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         miNuevo = new javax.swing.JMenuItem();
         miAbrir = new javax.swing.JMenuItem();
-        miCerrar = new javax.swing.JMenuItem();
         miGuardar = new javax.swing.JMenuItem();
+        miCerrar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         taTexto.setColumns(20);
         taTexto.setRows(5);
+        taTexto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                taTextoKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(taTexto);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -59,6 +68,11 @@ public class Main extends javax.swing.JFrame {
 
         miNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         miNuevo.setText("Nuevo");
+        miNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miNuevoActionPerformed(evt);
+            }
+        });
         jMenu1.add(miNuevo);
 
         miAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -70,18 +84,23 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(miAbrir);
 
-        miCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        miCerrar.setText("Guardar");
+        miGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        miGuardar.setText("Guardar");
+        miGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miGuardarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miGuardar);
+
+        miCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        miCerrar.setText("Cerrar");
         miCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miCerrarActionPerformed(evt);
             }
         });
         jMenu1.add(miCerrar);
-
-        miGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        miGuardar.setText("Cerrar");
-        jMenu1.add(miGuardar);
 
         jMenuBar1.add(jMenu1);
 
@@ -101,13 +120,43 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCerrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miCerrarActionPerformed
+    private void miGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miGuardarActionPerformed
+        // logica para guardar aqui
+        GUARDED = true;
+    }//GEN-LAST:event_miGuardarActionPerformed
 
     private void miAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirActionPerformed
-        Util.fileChooser();
+         if (validateClose("Hay cambios sin guardar.\nContinuar?") == JOptionPane.YES_OPTION) {
+            Util.fileChooser("");
+        }
     }//GEN-LAST:event_miAbrirActionPerformed
+
+    private void miCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCerrarActionPerformed
+        int option = validateClose("Seguro que quieres cerrar sin guardar?");
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_miCerrarActionPerformed
+
+    private void miNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevoActionPerformed
+        if (validateClose("Hay cambios sin guardar.\nContinuar?") == JOptionPane.YES_OPTION) {
+            taTexto.setText(null);
+        }
+    }//GEN-LAST:event_miNuevoActionPerformed
+
+    private void taTextoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taTextoKeyTyped
+        GUARDED = false;
+    }//GEN-LAST:event_taTextoKeyTyped
+
+    private int validateClose(String str) {
+        int option;
+        if (GUARDED) {
+            option = JOptionPane.YES_OPTION;
+        } else {
+            option = JOptionPane.showConfirmDialog(null, str);
+        }
+        return option;
+    }
 
     /**
      * @param args the command line arguments
