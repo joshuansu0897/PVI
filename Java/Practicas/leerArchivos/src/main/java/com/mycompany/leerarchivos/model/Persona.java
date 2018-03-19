@@ -24,6 +24,11 @@ public class Persona {
         this.nacionalidad = nacionalidad;
     }
 
+    @Override
+    public String toString() {
+        return "Persona{" + "nombre=" + nombre + ", estatura=" + estatura + ", nacionalidad=" + nacionalidad + '}';
+    }
+
     public String getNombre() {
         return nombre;
     }
