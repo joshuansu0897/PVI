@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  chat-socket:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - 80:80
+    environment:
+      - PORT=80

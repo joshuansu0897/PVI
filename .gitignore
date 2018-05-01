@@ -34,3 +34,6 @@
 hs_err_pid*
 
 # para Java
+
+
+node_modules
